@@ -6,7 +6,6 @@ import './App.css';
 import ChatPage from './pages/chatpage.component';
 import HomePage from './pages/homepage.component';
 import SignPage from './pages/signpage.component';
-import Header from './components/header.component';
 import LoginPage from './pages/loginpage.component';
 
 function App() {
@@ -30,7 +29,6 @@ function App() {
 
 	return (
 		<div className='App'>
-			<Route path='/' component={Header} />
 			<Route
 				exact
 				path='/'

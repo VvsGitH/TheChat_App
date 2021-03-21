@@ -3,6 +3,8 @@ import { auth, addUserToDb } from '../firebase/firebase.utils';
 
 import './signpage.style.css';
 
+import Header from '../components/header.component';
+
 const SignPage = ({ history }) => {
 	const [userName, setUserName] = useState('');
 	const [userEmail, setUserEmail] = useState('');
@@ -47,46 +49,50 @@ const SignPage = ({ history }) => {
 	};
 
 	return (
-		<div className='signpage card'>
-			<h3>Sign in with your email and password</h3>
-			<form className='sign-form' onSubmit={handleSubmit}>
-				<div className='container'>
-					<label>Full Name</label>
-					<input
-						type='text'
-						placeholder='insert your name'
-						name='name'
-						value={userName}
-						onChange={handleInput}
-						required
-					/>
-				</div>
-				<div className='container'>
-					<label>Email</label>
-					<input
-						type='email'
-						placeholder='insert your email'
-						name='email'
-						value={userEmail}
-						onChange={handleInput}
-						required
-					/>
-				</div>
-				<div className='container'>
-					<label>Password</label>
-					<input
-						type='password'
-						placeholder='insert your password'
-						name='password'
-						value={userPass}
-						onChange={handleInput}
-						required
-					/>
-				</div>
-				<button className='btn' type='submit'>
-					SIGN IN
-				</button>
-			</form>
+		<div>
+			<Header history={history} />
+
+			<div className='signpage card'>
+				<h3>Sign in with your email and password</h3>
+				<form className='sign-form' onSubmit={handleSubmit}>
+					<div className='container'>
+						<label>Full Name</label>
+						<input
+							type='text'
+							placeholder='insert your name'
+							name='name'
+							value={userName}
+							onChange={handleInput}
+							required
+						/>
+					</div>
+					<div className='container'>
+						<label>Email</label>
+						<input
+							type='email'
+							placeholder='insert your email'
+							name='email'
+							value={userEmail}
+							onChange={handleInput}
+							required
+						/>
+					</div>
+					<div className='container'>
+						<label>Password</label>
+						<input
+							type='password'
+							placeholder='insert your password'
+							name='password'
+							value={userPass}
+							onChange={handleInput}
+							required
+						/>
+					</div>
+					<button className='btn' type='submit'>
+						SIGN IN
+					</button>
+				</form>
+			</div>
 		</div>
 	);
 };

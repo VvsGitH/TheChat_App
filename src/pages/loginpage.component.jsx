@@ -7,6 +7,8 @@ import {
 
 import './loginpage.style.css';
 
+import Header from '../components/header.component';
+
 const LoginPage = ({ history }) => {
 	const [userEmail, setUserEmail] = useState('');
 	const [userPass, setUserPass] = useState('');
@@ -50,44 +52,48 @@ const LoginPage = ({ history }) => {
 	};
 
 	return (
-		<div className='loginpage card'>
-			<div className='option'>
-				<form onSubmit={handleSubmit}>
-					<label>Email</label>
-					<input
-						type='email'
-						placeholder='insert your email'
-						name='email'
-						value={userEmail}
-						onChange={handleInput}
-						required
-					/>
-					<label>Password</label>
-					<input
-						type='password'
-						placeholder='insert your password'
-						name='password'
-						value={userPass}
-						onChange={handleInput}
-						required
-					/>
-					<button className='btn' type='submit'>
-						LOG IN
+		<div>
+			<Header history={history} />
+
+			<div className='loginpage card'>
+				<div className='option'>
+					<form onSubmit={handleSubmit}>
+						<label>Email</label>
+						<input
+							type='email'
+							placeholder='insert your email'
+							name='email'
+							value={userEmail}
+							onChange={handleInput}
+							required
+						/>
+						<label>Password</label>
+						<input
+							type='password'
+							placeholder='insert your password'
+							name='password'
+							value={userPass}
+							onChange={handleInput}
+							required
+						/>
+						<button className='btn' type='submit'>
+							LOG IN
+						</button>
+					</form>
+					<h3>Login with your email and password</h3>
+				</div>
+
+				<hr />
+
+				<div className='option'>
+					<button
+						className='btn btn-google'
+						type='button'
+						onClick={handleGoogleSubmit}>
+						LOG IN WITH GOOGLE
 					</button>
-				</form>
-				<h3>Login with your email and password</h3>
-			</div>
-
-			<hr />
-
-			<div className='option'>
-				<button
-					className='btn btn-google'
-					type='button'
-					onClick={handleGoogleSubmit}>
-					LOG IN WITH GOOGLE
-				</button>
-				<h3>Login with Google</h3>
+					<h3>Login with Google</h3>
+				</div>
 			</div>
 		</div>
 	);
