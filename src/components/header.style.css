@@ -1,0 +1,20 @@
+.header {
+	background-color: var(--primary-color);
+	min-height: 300px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.header .title {
+	font-weight: bold;
+	font-size: 70px;
+	letter-spacing: 10px;
+	color: whitesmoke;
+	transition: 2s;
+}
+
+.header .title:hover {
+	cursor: pointer;
+	transform: scale(1.2);
+}

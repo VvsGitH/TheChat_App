@@ -21,46 +21,58 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 // UTILIS -> Google Auth
-const provider = new auth.GoogleAuthProvider();
-provider.addScope('profile');
-provider.addScope('email');
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+const provider = new firebase.auth.GoogleAuthProvider();
+export async function signInWithGoogle() {
+	try {
+		let result = await auth.signInWithPopup(provider);
+		return result.user;
+	} catch (error) {
+		throw error;
+	}
+}
 
 // UTILS -> Add new user to db
 export async function addUserToDb(userAuth, additionalData) {
 	if (!userAuth) return;
 
-	const userRef = firestore.doc('users/' + userAuth.uid);
-	const userSnap = await userRef.get();
+	try {
+		const userRef = firestore.doc('users/' + userAuth.uid);
+		const userSnap = await userRef.get();
 
-	if (!userSnap.exists) {
-		const { displayName, email } = userAuth;
-		const createdAt = new Date();
-		await userRef.set({
-			displayName,
-			email,
-			createdAt,
-			...additionalData,
-		});
+		if (!userSnap.exists) {
+			const { displayName, email } = userAuth;
+			const createdAt = new Date();
+			await userRef.set({
+				displayName,
+				email,
+				createdAt,
+				...additionalData,
+			});
+		}
+		return userRef;
+	} catch (error) {
+		throw error;
 	}
-
-	return userRef;
 }
 
 // UTILS -> Add new msg to db
 export async function sendMessage(message) {
 	if (!message) return;
 
-	const msgsRef = firestore.collection('messages/');
-	const msgsSnap = await msgsRef.get();
+	try {
+		const msgsRef = firestore.collection('messages/');
+		const msgsSnap = await msgsRef.get();
 
-	if (msgsSnap.exists) {
-		const { sender, content } = message;
-		const sentAt = new Date();
-		await msgsRef.add({
-			sender,
-			content,
-			sentAt,
-		});
+		if (msgsSnap.exists) {
+			const { sender, content } = message;
+			const sentAt = new Date();
+			await msgsRef.add({
+				sender,
+				content,
+				sentAt,
+			});
+		}
+	} catch (error) {
+		throw error;
 	}
 }

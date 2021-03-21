@@ -1,0 +1,55 @@
+.signpage {
+	padding: 50px 50px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.signpage h3 {
+	text-align: center;
+}
+
+.sign-form {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.sign-form .container {
+	flex: 1 0 0;
+	margin-bottom: 40px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.sign-form input {
+	border: none;
+	border-bottom: 2px solid darkgray;
+	background-color: whitesmoke;
+	color: var(--primary-color);
+	min-width: 200px;
+}
+
+.sign-form input:focus {
+	outline: none;
+	transform: scale(1.2);
+}
+
+.sign-form .btn {
+	width: 200px;
+	min-height: 40px;
+	border: 3px solid var(--primary-color);
+	border-radius: 10px;
+	background-color: var(--primary-color);
+	color: whitesmoke;
+	font-weight: bold;
+}
+
+.sign-form .btn:hover,
+.sign-form .btn:focus {
+	outline: none;
+	background-color: var(--secondary-color);
+	color: var(--primary-color);
+}

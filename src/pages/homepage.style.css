@@ -1,0 +1,62 @@
+.homepage {
+	position: relative;
+}
+
+.homepage h2 {
+	font-weight: bold;
+	margin-bottom: 40px;
+	font-size: 30px;
+}
+
+.homepage h2 span {
+	padding: 3px;
+	background-color: var(--primary-color);
+	color: whitesmoke;
+}
+
+.homepage p {
+	font-size: 20px;
+}
+
+.homepage .container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.homepage .btn {
+	width: 200px;
+	min-height: 80px;
+	border: 5px solid var(--primary-color);
+	border-radius: 15px;
+	margin: 15px auto;
+	background-color: var(--primary-color);
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.homepage .btn:hover,
+.homepage .btn:focus {
+	background-color: var(--secondary-color);
+	color: var(--primary-color);
+	cursor: pointer;
+	outline: none;
+}
+
+.homepage .link {
+	position: absolute;
+	bottom: 15px;
+	right: 20px;
+
+	font-size: 15px;
+	border-bottom: 1px solid black;
+}
+
+.homepage .link:hover {
+	color: var(--primary-color);
+	border-bottom: 1px solid var(--primary-color);
+	transform: scale(1.1);
+	cursor: pointer;
+}
