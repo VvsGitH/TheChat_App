@@ -1,0 +1,94 @@
+.chatpage {
+	height: 100vh;
+	width: 100vw;
+}
+
+.top-bar {
+	min-height: 10%;
+	background-color: var(--primary-color);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.top-bar h2 {
+	color: whitesmoke;
+	letter-spacing: 5px;
+	font-size: 40px;
+	margin-left: 60px;
+}
+
+.top-bar .sign-out {
+	color: whitesmoke;
+	margin-right: 60px;
+	font-size: 20px;
+}
+
+.top-bar h2:hover,
+.top-bar .sign-out:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.top-bar .sign-out:hover {
+	border-bottom: 2px solid whitesmoke;
+}
+
+.main-container {
+	max-width: 1300px;
+	height: 90%;
+	margin: 0 auto;
+	background-color: whitesmoke;
+	border: 10px solid var(--primary-color);
+	border-top: none;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.chat-container {
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+.chat-controls {
+	display: flex;
+	margin: 20px 10px;
+}
+
+.chat-controls textarea {
+	flex: 4 0 0;
+	margin-right: 10px;
+	padding: 10px;
+	border-radius: 10px;
+	border: 5px solid var(--primary-color);
+	font-size: 20px;
+
+	resize: none;
+}
+
+.chat-controls textarea:focus {
+	outline: none;
+}
+
+.chat-controls button {
+	flex: 1 0 0;
+	padding: 10px;
+	font-size: 20px;
+	border: 5px solid var(--primary-color);
+	border-radius: 10px;
+	background-color: var(--primary-color);
+	color: white;
+	font-weight: bold;
+	letter-spacing: 5px;
+}
+
+.chat-controls button:hover,
+.chat-controls button:focus {
+	cursor: pointer;
+	background-color: var(--secondary-color);
+	color: var(--primary-color);
+	outline: none;
+}

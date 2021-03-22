@@ -9,7 +9,7 @@ const HomePage = ({ isLoggedIn, history }) => {
 		try {
 			await auth.signOut();
 		} catch (error) {
-			console.error('Error in signOut(): ', error);
+			console.error('Error during sign-out: ', error.code, error.message);
 		}
 	};
 
@@ -42,6 +42,11 @@ const HomePage = ({ isLoggedIn, history }) => {
 						</p>
 					</div>
 				)}
+			</div>
+			<div className='PROVVISORIO'>
+				<button onClick={() => history.push('/chat')}>
+					LINK PROVVISORIO ALLA CHAT
+				</button>
 			</div>
 		</div>
 	);

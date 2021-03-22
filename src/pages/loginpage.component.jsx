@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {
+import firebase, {
 	auth,
 	signInWithGoogle,
 	addUserToDb,
@@ -27,28 +27,24 @@ const LoginPage = ({ history }) => {
 		}
 	};
 
-	const handleSubmit = async event => {
+	const logIn = async event => {
 		event.preventDefault();
 		try {
+			await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
 			await auth.signInWithEmailAndPassword(userEmail, userPass);
 			setUserEmail('');
 			setUserPass('');
 			history.push('/');
 		} catch (error) {
 			alert('Credential are wrong');
-			console.error('Error in handleSubmit(): ', error);
+			console.error('Error during sign-in: ', error.code, error.message);
 		}
 	};
 
-	const handleGoogleSubmit = async () => {
-		try {
-			let newUser = await signInWithGoogle();
-			await addUserToDb(newUser);
-			history.push('/');
-		} catch (error) {
-			alert('Something went wrong, try again!');
-			console.error('Error in handleGoogleSubmit(): ', error);
-		}
+	const signInGoogle = async () => {
+		let { user } = await signInWithGoogle();
+		await addUserToDb(user);
+		history.push('/');
 	};
 
 	return (
@@ -57,7 +53,7 @@ const LoginPage = ({ history }) => {
 
 			<div className='loginpage card'>
 				<div className='option'>
-					<form onSubmit={handleSubmit}>
+					<form onSubmit={logIn}>
 						<label>Email</label>
 						<input
 							type='email'
@@ -89,7 +85,7 @@ const LoginPage = ({ history }) => {
 					<button
 						className='btn btn-google'
 						type='button'
-						onClick={handleGoogleSubmit}>
+						onClick={signInGoogle}>
 						LOG IN WITH GOOGLE
 					</button>
 					<h3>Login with Google</h3>

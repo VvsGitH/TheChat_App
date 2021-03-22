@@ -27,7 +27,7 @@ const SignPage = ({ history }) => {
 		}
 	};
 
-	const handleSubmit = async event => {
+	const createNewUser = async event => {
 		event.preventDefault();
 		try {
 			let { user } = await auth.createUserWithEmailAndPassword(
@@ -44,7 +44,11 @@ const SignPage = ({ history }) => {
 			history.push('/');
 		} catch (error) {
 			alert('Something went wrong, try again');
-			console.error('Error in handleSubmit(): ', error);
+			console.error(
+				'An error occurred during registration: ',
+				error.code,
+				error.message
+			);
 		}
 	};
 
@@ -54,7 +58,7 @@ const SignPage = ({ history }) => {
 
 			<div className='signpage card'>
 				<h3>Sign in with your email and password</h3>
-				<form className='sign-form' onSubmit={handleSubmit}>
+				<form className='sign-form' onSubmit={createNewUser}>
 					<div className='container'>
 						<label>Full Name</label>
 						<input

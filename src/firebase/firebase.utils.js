@@ -13,6 +13,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+export default firebase;
 
 // Authentication
 export const auth = firebase.auth();
@@ -21,13 +22,24 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 // UTILIS -> Google Auth
-const provider = new firebase.auth.GoogleAuthProvider();
 export async function signInWithGoogle() {
 	try {
+		// Setting persistance
+		await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+		// Configuring provider
+		let provider = new firebase.auth.GoogleAuthProvider();
+		provider.setCustomParameters({ prompt: 'select_account' });
+		// Signing in and returning the result
 		let result = await auth.signInWithPopup(provider);
-		return result.user;
+		return result;
 	} catch (error) {
-		throw error;
+		alert('Something went wrong, try again!');
+		console.error(
+			'Error in handleGoogleSubmit: ',
+			error.code,
+			error.message,
+			error.credentials
+		);
 	}
 }
 
@@ -49,30 +61,9 @@ export async function addUserToDb(userAuth, additionalData) {
 				...additionalData,
 			});
 		}
-		return userRef;
+
+		return userSnap;
 	} catch (error) {
-		throw error;
-	}
-}
-
-// UTILS -> Add new msg to db
-export async function sendMessage(message) {
-	if (!message) return;
-
-	try {
-		const msgsRef = firestore.collection('messages/');
-		const msgsSnap = await msgsRef.get();
-
-		if (msgsSnap.exists) {
-			const { sender, content } = message;
-			const sentAt = new Date();
-			await msgsRef.add({
-				sender,
-				content,
-				sentAt,
-			});
-		}
-	} catch (error) {
-		throw error;
+		console.error('An error occurred with the db: ', error);
 	}
 }

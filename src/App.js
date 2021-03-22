@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Route } from 'react-router';
-import { auth } from './firebase/firebase.utils';
+import { Redirect, Route } from 'react-router';
+import { auth, firestore } from './firebase/firebase.utils';
 import './App.css';
 
 import ChatPage from './pages/chatpage.component';
@@ -10,22 +10,31 @@ import LoginPage from './pages/loginpage.component';
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [user, setUser] = useState(null);
+	const [userInfo, setUserInfo] = useState({ id: '', name: '' });
 
-	useEffect(() => {
-		const unsubFromAuth = auth.onAuthStateChanged(userAuth => {
+	/*useEffect(() => {
+		const unsubFromAuth = auth.onAuthStateChanged(async userAuth => {
+			console.log('Auth state changed: ', userAuth);
 			if (userAuth) {
-				//console.log(userAuth);
-				setIsLoggedIn(true);
-				setUser(userAuth.displayName);
+				console.log('A new user logged in');
+				let userDb = await firestore.doc('users/' + userAuth.uid).get();
+				if (userDb.exists) {
+					setUserInfo({
+						id: userDb.id,
+						name: userDb.data().displayName,
+					});
+					setIsLoggedIn(true);
+				} else {
+					console.error('User does not exist in database!');
+				}
 			} else {
 				setIsLoggedIn(false);
-				setUser(null);
+				setUserInfo({ id: '', name: '' });
 			}
 		});
 
 		return () => unsubFromAuth();
-	});
+	}, []);*/
 
 	return (
 		<div className='App'>
@@ -38,7 +47,14 @@ function App() {
 			<Route path='/signin' component={SignPage} />
 			<Route
 				path='/chat'
-				render={props => <ChatPage {...props} user={user} />}
+				render={props => (
+					/*isLoggedIn ? (
+						<ChatPage {...props} user={userInfo} />
+					) : (
+						<Redirect to='/' />
+					)*/
+					<ChatPage {...props} user={userInfo} />
+				)}
 			/>
 		</div>
 	);

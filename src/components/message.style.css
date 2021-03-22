@@ -1,0 +1,7 @@
+.message {
+	align-self: flex-end;
+	margin: 10px 0;
+	padding: 10px;
+	background-color: var(--primary-color);
+	border-radius: 15px;
+}
