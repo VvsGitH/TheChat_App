@@ -1,20 +1,22 @@
 .header {
 	background-color: var(--primary-color);
-	min-height: 300px;
+	min-height: 20rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
 .header .title {
+	text-align: center;
 	font-weight: bold;
-	font-size: 70px;
-	letter-spacing: 10px;
+	font-size: 5.5rem;
+	letter-spacing: 0.7rem;
+	line-height: 6rem;
 	color: whitesmoke;
 	transition: 2s;
 }
 
 .header .title:hover {
 	cursor: pointer;
-	transform: scale(1.2);
+	transform: scale(1.15);
 }

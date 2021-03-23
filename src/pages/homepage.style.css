@@ -1,21 +1,13 @@
 .homepage {
 	position: relative;
+	justify-content: space-around;
 }
 
-.homepage h2 {
-	font-weight: bold;
-	margin-bottom: 40px;
-	font-size: 30px;
-}
-
-.homepage h2 span {
-	padding: 3px;
+.homepage .logo {
+	display: inline-block;
+	padding: 0.3rem;
 	background-color: var(--primary-color);
 	color: whitesmoke;
-}
-
-.homepage p {
-	font-size: 20px;
 }
 
 .homepage .container {
@@ -26,37 +18,23 @@
 }
 
 .homepage .btn {
-	width: 200px;
-	min-height: 80px;
-	border: 5px solid var(--primary-color);
-	border-radius: 15px;
-	margin: 15px auto;
-	background-color: var(--primary-color);
-	color: white;
-	font-weight: bold;
-	font-size: 20px;
-}
-
-.homepage .btn:hover,
-.homepage .btn:focus {
-	background-color: var(--secondary-color);
-	color: var(--primary-color);
-	cursor: pointer;
-	outline: none;
+	width: 13rem;
+	min-height: 5rem;
+	font-size: 1.5rem;
 }
 
 .homepage .link {
 	position: absolute;
-	bottom: 15px;
-	right: 20px;
+	bottom: 1rem;
+	right: 1.3rem;
 
-	font-size: 15px;
-	border-bottom: 1px solid black;
+	font-size: 0.9rem;
+	border-bottom: 0.1rem solid black;
 }
 
 .homepage .link:hover {
 	color: var(--primary-color);
-	border-bottom: 1px solid var(--primary-color);
+	border-bottom: 0.1rem solid var(--primary-color);
 	transform: scale(1.1);
 	cursor: pointer;
 }

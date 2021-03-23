@@ -1,19 +1,29 @@
 .loginpage {
 	padding: 40px 50px;
-	display: flex;
-	flex-direction: column;
 	justify-content: space-around;
 }
 
+@media only screen and (min-width: 540px) {
+	.loginpage {
+		width: 100%;
+	}
+}
+
+@media only screen and (min-width: 580px) {
+	.loginpage {
+		width: 580px;
+	}
+}
+
 .loginpage .option {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
 .loginpage h3 {
-	text-align: center;
-	width: 150px;
+	text-align: left;
+	margin: 1.5rem 0;
+	margin-right: 1.5rem;
 }
 
 .loginpage form {
@@ -23,44 +33,21 @@
 	align-items: flex-start;
 }
 
-.loginpage input {
-	border: none;
-	border-bottom: 2px solid darkgray;
-	background-color: whitesmoke;
-	margin: 5px auto 20px auto;
-	color: var(--primary-color);
-	min-width: 200px;
-}
-
-.loginpage input:focus {
-	outline: none;
-	transform: scale(1.2);
-}
-
 .loginpage .btn {
-	width: 200px;
-	min-height: 40px;
-	border: 3px solid var(--primary-color);
-	border-radius: 10px;
-	background-color: var(--primary-color);
-	color: whitesmoke;
-	font-weight: bold;
+	width: 210px;
+	min-height: 50px;
+	font-size: 1.2rem;
+	margin: 1rem 0;
 }
 
-.loginpage .btn:hover,
-.loginpage .btn:focus {
-	outline: none;
-	background-color: var(--secondary-color);
-	color: var(--primary-color);
-}
-
-.loginpage .btn.btn-google {
+.loginpage .btn-google {
+	font-size: 1rem;
 	border-color: rgb(246, 57, 57);
 	background-color: rgb(246, 57, 57);
 }
 
-.loginpage .btn.btn-google:hover,
-.loginpage .btn.btn-google:focus {
+.loginpage .btn-google:hover,
+.loginpage .btn-google:focus {
 	background-color: var(--secondary-color);
 	color: rgb(246, 57, 57);
 }

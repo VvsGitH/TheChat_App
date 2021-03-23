@@ -60,6 +60,7 @@ export async function addUserToDb(userAuth, additionalData) {
 				createdAt,
 				...additionalData,
 			});
+			await new Promise(resolve => setTimeout(resolve, 1000)); // wait for the db to update
 		}
 
 		return userSnap;

@@ -56,7 +56,7 @@ const SignPage = ({ history }) => {
 		<div>
 			<Header history={history} />
 
-			<div className='signpage card'>
+			<div className='signpage card flex-column'>
 				<h3>Sign in with your email and password</h3>
 				<form className='sign-form' onSubmit={createNewUser}>
 					<div className='container'>
@@ -71,7 +71,7 @@ const SignPage = ({ history }) => {
 						/>
 					</div>
 					<div className='container'>
-						<label>Email</label>
+						<label className='email-label'>Email</label>
 						<input
 							type='email'
 							placeholder='insert your email'

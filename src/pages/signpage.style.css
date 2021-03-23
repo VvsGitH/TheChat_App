@@ -1,12 +1,12 @@
 .signpage {
 	padding: 50px 50px;
-	display: flex;
-	flex-direction: column;
 	justify-content: space-between;
+	height: 100%;
 }
 
 .signpage h3 {
 	text-align: center;
+	margin-bottom: 1.5rem;
 }
 
 .sign-form {
@@ -20,36 +20,26 @@
 	margin-bottom: 40px;
 	width: 100%;
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
 }
 
 .sign-form input {
-	border: none;
-	border-bottom: 2px solid darkgray;
-	background-color: whitesmoke;
-	color: var(--primary-color);
-	min-width: 200px;
+	margin: 5px 0 20px auto;
 }
 
-.sign-form input:focus {
-	outline: none;
-	transform: scale(1.2);
+.sign-form label {
+	margin-right: 1rem;
+}
+
+.sign-form .email-label {
+	margin-right: 3.2rem;
 }
 
 .sign-form .btn {
 	width: 200px;
-	min-height: 40px;
-	border: 3px solid var(--primary-color);
-	border-radius: 10px;
-	background-color: var(--primary-color);
-	color: whitesmoke;
-	font-weight: bold;
-}
-
-.sign-form .btn:hover,
-.sign-form .btn:focus {
-	outline: none;
-	background-color: var(--secondary-color);
-	color: var(--primary-color);
+	min-height: 50px;
+	margin: 0 auto 0 auto;
+	font-size: 1.1rem;
 }

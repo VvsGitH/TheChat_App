@@ -51,8 +51,9 @@ const LoginPage = ({ history }) => {
 		<div>
 			<Header history={history} />
 
-			<div className='loginpage card'>
+			<div className='loginpage card flex-column'>
 				<div className='option'>
+					<h3>Login with your email and password</h3>
 					<form onSubmit={logIn}>
 						<label>Email</label>
 						<input
@@ -76,19 +77,18 @@ const LoginPage = ({ history }) => {
 							LOG IN
 						</button>
 					</form>
-					<h3>Login with your email and password</h3>
 				</div>
 
 				<hr />
 
 				<div className='option'>
+					<h3>Login with Google</h3>
 					<button
 						className='btn btn-google'
 						type='button'
 						onClick={signInGoogle}>
 						LOG IN WITH GOOGLE
 					</button>
-					<h3>Login with Google</h3>
 				</div>
 			</div>
 		</div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Message from '../components/message.component';
 import { auth, firestore } from '../firebase/firebase.utils';
 
@@ -7,6 +7,34 @@ import './chatpage.style.css';
 const ChatPage = ({ user, history }) => {
 	const [newMsgContent, setNewMsgContent] = useState('');
 	const [messages, setMessages] = useState([]);
+
+	// Reference di un div vuoto alla fine della lista dei messaggi. Utile per lo scrolling automatico
+	const scrollerDummy = useRef();
+
+	useEffect(() => {
+		const unsubFromFirestore = firestore
+			.collection('messages/')
+			.orderBy('sentAt')
+			.limit(25)
+			.onSnapshot(
+				snapshot => {
+					console.log('Updating the chat from db!');
+					let dbMessages = [];
+					snapshot.forEach(msg => {
+						let msgWithId = {
+							id: msg.id,
+							...msg.data(),
+						};
+						dbMessages.push(msgWithId);
+					});
+					setMessages(dbMessages);
+					scrollerDummy.current.scrollIntoView({ behavior: 'smooth' });
+				},
+				error => console.error(error)
+			);
+
+		return () => unsubFromFirestore();
+	}, []);
 
 	const handleChange = event => {
 		event.preventDefault();
@@ -37,81 +65,44 @@ const ChatPage = ({ user, history }) => {
 		}
 	};
 
-	/*useEffect(() => {
-		const unsubFromFirestore = firestore
-			.collection('messages/')
-			.orderBy('sentAt')
-			.limit(25)
-			.onSnapshot(
-				snapshot => {
-					console.log('Updating the chat from db!');
-					let dbMessages = [];
-					snapshot.forEach(msg => {
-						let msgWithId = {
-							id: msg.id,
-							...msg.data(),
-						};
-						dbMessages.push(msgWithId);
-					});
-					setMessages(dbMessages);
-				},
-				error => console.error(error)
-			);
-
-		return () => unsubFromFirestore();
-	}, []); */
-
 	return (
 		<div className='chatpage'>
 			<header className='top-bar'>
-				<h2 onClick={() => history.push('/')}>THE CHAT</h2>
+				<h2 className='logo' onClick={() => history.push('/')}>
+					THE CHAT
+				</h2>
 				<span className='sign-out' onClick={logOut}>
 					Sign Out
 				</span>
 			</header>
 
-			<div className='main-container'>
-				<div className='chat-container'>
+			<div className='chat-container'>
+				<div className='chat-slider'>
 					{messages.map(msg => (
 						<Message
 							key={msg.id}
 							sender={msg.senderName}
 							content={msg.content}
 							time={msg.sentAt.toDate().toLocaleString()}
+							isReceived={msg.senderId !== user.id}
 						/>
 					))}
-					<Message
-						sender='Vito'
-						content='This is a message'
-						time='22/03/2021 - 18:12'
-					/>
-					<Message
-						sender='Luca'
-						content='This is a message'
-						time='22/03/2021 - 18:12'
-					/>
-					<Message
-						sender='Vito'
-						content='This is a message'
-						time='22/03/2021 - 18:12'
-					/>
-					<Message
-						sender='Luca'
-						content='This is a message'
-						time='22/03/2021 - 18:12'
-					/>
+					<div ref={scrollerDummy}></div>
 				</div>
-				<form className='chat-controls' onSubmit={sendMessage}>
-					<textarea
-						type='text'
-						placeholder='Write your message'
-						value={newMsgContent}
-						onChange={handleChange}
-						required
-					/>
-					<button type='submit'>SEND</button>
-				</form>
 			</div>
+
+			<form className='chat-controls' onSubmit={sendMessage}>
+				<textarea
+					type='text'
+					placeholder='Write your message'
+					value={newMsgContent}
+					onChange={handleChange}
+					required
+				/>
+				<button className='btn' type='submit'>
+					SEND
+				</button>
+			</form>
 		</div>
 	);
 };

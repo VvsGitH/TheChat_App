@@ -17,9 +17,9 @@ const HomePage = ({ isLoggedIn, history }) => {
 		<div>
 			<Header history={history} />
 
-			<div className='homepage card'>
+			<div className='homepage card flex-column'>
 				<h2>
-					Welcome to <span>The Chat</span>
+					Welcome to <span className='logo'>The Chat</span>
 				</h2>
 				{isLoggedIn ? (
 					<div className='container'>
@@ -42,11 +42,6 @@ const HomePage = ({ isLoggedIn, history }) => {
 						</p>
 					</div>
 				)}
-			</div>
-			<div className='PROVVISORIO'>
-				<button onClick={() => history.push('/chat')}>
-					LINK PROVVISORIO ALLA CHAT
-				</button>
 			</div>
 		</div>
 	);

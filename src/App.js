@@ -12,7 +12,7 @@ function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [userInfo, setUserInfo] = useState({ id: '', name: '' });
 
-	/*useEffect(() => {
+	useEffect(() => {
 		const unsubFromAuth = auth.onAuthStateChanged(async userAuth => {
 			console.log('Auth state changed: ', userAuth);
 			if (userAuth) {
@@ -34,7 +34,7 @@ function App() {
 		});
 
 		return () => unsubFromAuth();
-	}, []);*/
+	}, []);
 
 	return (
 		<div className='App'>
@@ -47,14 +47,14 @@ function App() {
 			<Route path='/signin' component={SignPage} />
 			<Route
 				path='/chat'
-				render={props => (
-					/*isLoggedIn ? (
+				render={props =>
+					isLoggedIn ? (
 						<ChatPage {...props} user={userInfo} />
 					) : (
 						<Redirect to='/' />
-					)*/
-					<ChatPage {...props} user={userInfo} />
-				)}
+					)
+					//<ChatPage {...props} user={userInfo} />
+				}
 			/>
 		</div>
 	);
