@@ -11,7 +11,6 @@ const ChatPage = ({ user, history }) => {
 
 	// Reference di un div vuoto alla fine della lista dei messaggi. Utile per lo scrolling automatico
 	const scrollerDummy = useRef();
-	const textArea = useRef();
 
 	useEffect(() => {
 		// Al caricamento del componente, viene fatta una iscrizione ad un listener del database, che aggiorna lo stato messages ogni volta che rileva un nuovo messaggio nel db
@@ -57,12 +56,16 @@ const ChatPage = ({ user, history }) => {
 
 	const handleChange = event => {
 		event.preventDefault();
-		setNewMsgContent(event.target.textContent);
+		setNewMsgContent(event.target.value);
+		// Auto-resize
+		event.target.style.height = '100%';
+		event.target.style.height = event.target.scrollHeight + 'px';
 	};
 
 	const sendMessage = async event => {
 		event.preventDefault();
-		if (newMsgContent === '') {
+		if (newMsgContent.trim() === '') {
+			setNewMsgContent('');
 			return;
 		}
 
@@ -74,7 +77,6 @@ const ChatPage = ({ user, history }) => {
 				sentAt: new Date(),
 			});
 			setNewMsgContent('');
-			textArea.current.textContent = '';
 		} catch (error) {
 			console.error('Error sending message: ', error);
 		}
@@ -117,15 +119,16 @@ const ChatPage = ({ user, history }) => {
 			</div>
 
 			<form className='chat-controls' onSubmit={sendMessage}>
-				<span
+				<textarea
 					className='text-area'
-					role='textbox'
-					contentEditable
+					name='input'
+					rows='1'
+					placeholder='Write your message!'
+					value={newMsgContent}
 					onInput={handleChange}
-					ref={textArea}
 				/>
 				<button className='btn' type='submit'>
-					SEND
+					<i className='fa fa-paper-plane'></i>
 				</button>
 			</form>
 		</div>
