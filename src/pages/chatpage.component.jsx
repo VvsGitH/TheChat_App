@@ -7,11 +7,13 @@ import './chatpage.style.css';
 const ChatPage = ({ user, history }) => {
 	const [newMsgContent, setNewMsgContent] = useState('');
 	const [messages, setMessages] = useState([]);
+	const [colorHueDictionary, setColorHueDictionary] = useState([]);
 
 	// Reference di un div vuoto alla fine della lista dei messaggi. Utile per lo scrolling automatico
 	const scrollerDummy = useRef();
 
 	useEffect(() => {
+		// Al caricamento del componente, viene fatta una iscrizione ad un listener del database, che aggiorna lo stato messages ogni volta che rileva un nuovo messaggio nel db
 		const unsubFromFirestore = firestore
 			.collection('messages/')
 			.orderBy('sentAt')
@@ -28,13 +30,29 @@ const ChatPage = ({ user, history }) => {
 						dbMessages.push(msgWithId);
 					});
 					setMessages(dbMessages);
-					scrollerDummy.current.scrollIntoView({ behavior: 'smooth' });
 				},
 				error => console.error(error)
 			);
 
 		return () => unsubFromFirestore();
 	}, []);
+
+	useEffect(() => {
+		// Ogni volta che lo stato messages cambia viene creato un dizionario che assegna un colore (solo il valore Hue) ad ogni sender ...
+		let senders = messages.map(msg => msg.senderId);
+		let uniqueSenders = senders.filter(
+			(sender, indx) => senders.indexOf(sender) === indx
+		);
+		let colorHueDistance = Math.ceil(360 / uniqueSenders.length);
+		let colorSenderDict = {};
+		for (let i = 0; i < uniqueSenders.length; i++) {
+			colorSenderDict[uniqueSenders[i]] = i * colorHueDistance;
+		}
+		setColorHueDictionary(colorSenderDict);
+
+		// ... E la chat scorre in basso fino al nuovo messaggio
+		scrollerDummy.current.scrollIntoView({ behavior: 'smooth' });
+	}, [messages]);
 
 	const handleChange = event => {
 		event.preventDefault();
@@ -85,6 +103,7 @@ const ChatPage = ({ user, history }) => {
 							content={msg.content}
 							time={msg.sentAt.toDate().toLocaleString()}
 							isReceived={msg.senderId !== user.id}
+							color={colorHueDictionary[msg.senderId]}
 						/>
 					))}
 					<div ref={scrollerDummy}></div>
