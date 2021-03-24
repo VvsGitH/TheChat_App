@@ -11,26 +11,27 @@
 .top-bar {
 	background-color: var(--primary-color);
 
-	display: flex;
-	justify-content: space-around;
+	display: grid;
+	grid-template-columns: 6fr 1fr;
 	align-items: center;
 }
 
 .top-bar .logo {
-	margin: 0;
+	margin: 0 auto;
+	max-width: fit-content;
+
 	color: whitesmoke;
 	letter-spacing: 0.4rem;
 	transition: 1s;
-	flex: 2 0 0;
 }
 
 .top-bar .sign-out {
+	margin: 0 auto;
+	max-width: fit-content;
+
 	color: whitesmoke;
 	font-size: 1.2rem;
-	flex: 1 0 0;
-	text-align: right;
-	margin: 0 2rem 0 0;
-	max-width: fit-content;
+	transition: 0.2s;
 }
 
 .top-bar .logo:hover,

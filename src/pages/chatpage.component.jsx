@@ -17,7 +17,7 @@ const ChatPage = ({ user, history }) => {
 		// Al caricamento del componente, viene fatta una iscrizione ad un listener del database, che aggiorna lo stato messages ogni volta che rileva un nuovo messaggio nel db
 		const unsubFromFirestore = firestore
 			.collection('messages/')
-			.orderBy('sentAt')
+			.orderBy('sentAt', 'desc')
 			.limit(25)
 			.onSnapshot(
 				snapshot => {
@@ -30,7 +30,7 @@ const ChatPage = ({ user, history }) => {
 						};
 						dbMessages.push(msgWithId);
 					});
-					setMessages(dbMessages);
+					setMessages(dbMessages.reverse());
 				},
 				error => console.error(error)
 			);
@@ -94,6 +94,7 @@ const ChatPage = ({ user, history }) => {
 				<h2 className='logo' onClick={() => history.push('/TheChat_App')}>
 					THE CHAT
 				</h2>
+
 				<span className='sign-out' onClick={logOut}>
 					Sign Out
 				</span>
