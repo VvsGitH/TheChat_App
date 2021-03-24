@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import firebase, {
-	auth,
-	signInWithGoogle,
-	addUserToDb,
-} from '../firebase/firebase.utils';
+import { signInWithGoogle, logIn } from '../firebase/firebase.utils';
 
 import './loginpage.style.css';
 
@@ -27,11 +23,10 @@ const LoginPage = ({ history }) => {
 		}
 	};
 
-	const logIn = async event => {
+	const handleLogIn = async event => {
 		event.preventDefault();
 		try {
-			await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
-			await auth.signInWithEmailAndPassword(userEmail, userPass);
+			await logIn(userEmail, userPass);
 			setUserEmail('');
 			setUserPass('');
 			history.push('/');
@@ -41,10 +36,19 @@ const LoginPage = ({ history }) => {
 		}
 	};
 
-	const signInGoogle = async () => {
-		let { user } = await signInWithGoogle();
-		await addUserToDb(user);
-		history.push('/');
+	const handleGoogleSignin = async () => {
+		try {
+			await signInWithGoogle();
+			history.push('/');
+		} catch (error) {
+			alert('Something went wrong, try again!');
+			console.error(
+				'Error in Google signin: ',
+				error.code,
+				error.message,
+				error.credentials
+			);
+		}
 	};
 
 	return (
@@ -54,7 +58,7 @@ const LoginPage = ({ history }) => {
 			<div className='loginpage card flex-column'>
 				<div className='option'>
 					<h3>Login with your email and password</h3>
-					<form onSubmit={logIn}>
+					<form onSubmit={handleLogIn}>
 						<label>Email</label>
 						<input
 							type='email'
@@ -86,7 +90,7 @@ const LoginPage = ({ history }) => {
 					<button
 						className='btn btn-google'
 						type='button'
-						onClick={signInGoogle}>
+						onClick={handleGoogleSignin}>
 						LOG IN WITH GOOGLE
 					</button>
 				</div>

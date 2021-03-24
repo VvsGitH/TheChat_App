@@ -13,7 +13,6 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-export default firebase;
 
 // Authentication
 export const auth = firebase.auth();
@@ -29,42 +28,35 @@ export async function signInWithGoogle() {
 		// Configuring provider
 		let provider = new firebase.auth.GoogleAuthProvider();
 		provider.setCustomParameters({ prompt: 'select_account' });
-		// Signing in and returning the result
-		let result = await auth.signInWithPopup(provider);
-		return result;
+		// Signing in
+		await auth.signInWithPopup(provider);
 	} catch (error) {
-		alert('Something went wrong, try again!');
-		console.error(
-			'Error in handleGoogleSubmit: ',
-			error.code,
-			error.message,
-			error.credentials
-		);
+		throw error;
 	}
 }
 
-// UTILS -> Add new user to db
-export async function addUserToDb(userAuth, additionalData) {
-	if (!userAuth) return;
-
+// UTILS -> Create New User
+export async function createNewUser(name, email, password) {
 	try {
-		const userRef = firestore.doc('users/' + userAuth.uid);
-		const userSnap = await userRef.get();
-
-		if (!userSnap.exists) {
-			const { displayName, email } = userAuth;
-			const createdAt = new Date();
-			await userRef.set({
-				displayName,
-				email,
-				createdAt,
-				...additionalData,
-			});
-			await new Promise(resolve => setTimeout(resolve, 1000)); // wait for the db to update
-		}
-
-		return userSnap;
+		// Setting persistance
+		await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+		// Create new user with email and password
+		let { user } = await auth.createUserWithEmailAndPassword(email, password);
+		// Adding the name to the user profile
+		await user.updateProfile({
+			displayName: name,
+		});
 	} catch (error) {
-		console.error('An error occurred with the db: ', error);
+		throw error;
+	}
+}
+
+// UTILS -> Log in
+export async function logIn(email, password) {
+	try {
+		await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+		await auth.signInWithEmailAndPassword(email, password);
+	} catch (error) {
+		throw error;
 	}
 }

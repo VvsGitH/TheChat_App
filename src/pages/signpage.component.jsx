@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { auth, addUserToDb } from '../firebase/firebase.utils';
+import { createNewUser } from '../firebase/firebase.utils';
 
 import './signpage.style.css';
 
@@ -27,17 +27,10 @@ const SignPage = ({ history }) => {
 		}
 	};
 
-	const createNewUser = async event => {
+	const handleUserCreation = async event => {
 		event.preventDefault();
 		try {
-			let { user } = await auth.createUserWithEmailAndPassword(
-				userEmail,
-				userPass
-			);
-
-			let displayName = userName;
-			await addUserToDb(user, { displayName });
-
+			await createNewUser(userName, userEmail, userPass);
 			setUserName('');
 			setUserEmail('');
 			setUserPass('');
@@ -58,7 +51,7 @@ const SignPage = ({ history }) => {
 
 			<div className='signpage card flex-column'>
 				<h3>Sign in with your email and password</h3>
-				<form className='sign-form' onSubmit={createNewUser}>
+				<form className='sign-form' onSubmit={handleUserCreation}>
 					<div className='container'>
 						<label>Full Name</label>
 						<input
