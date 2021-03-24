@@ -11,6 +11,7 @@ const ChatPage = ({ user, history }) => {
 
 	// Reference di un div vuoto alla fine della lista dei messaggi. Utile per lo scrolling automatico
 	const scrollerDummy = useRef();
+	const textArea = useRef();
 
 	useEffect(() => {
 		// Al caricamento del componente, viene fatta una iscrizione ad un listener del database, che aggiorna lo stato messages ogni volta che rileva un nuovo messaggio nel db
@@ -56,11 +57,14 @@ const ChatPage = ({ user, history }) => {
 
 	const handleChange = event => {
 		event.preventDefault();
-		setNewMsgContent(event.target.value);
+		setNewMsgContent(event.target.textContent);
 	};
 
 	const sendMessage = async event => {
 		event.preventDefault();
+		if (newMsgContent === '') {
+			return;
+		}
 
 		try {
 			await firestore.collection('messages/').add({
@@ -70,6 +74,7 @@ const ChatPage = ({ user, history }) => {
 				sentAt: new Date(),
 			});
 			setNewMsgContent('');
+			textArea.current.textContent = '';
 		} catch (error) {
 			console.error('Error sending message: ', error);
 		}
@@ -111,12 +116,12 @@ const ChatPage = ({ user, history }) => {
 			</div>
 
 			<form className='chat-controls' onSubmit={sendMessage}>
-				<textarea
-					type='text'
-					placeholder='Write your message'
-					value={newMsgContent}
-					onChange={handleChange}
-					required
+				<span
+					className='text-area'
+					role='textbox'
+					contentEditable
+					onInput={handleChange}
+					ref={textArea}
 				/>
 				<button className='btn' type='submit'>
 					SEND
