@@ -24,7 +24,9 @@ const HomePage = ({ isLoggedIn, history }) => {
 				{isLoggedIn ? (
 					<div className='container'>
 						<p>Start chatting with your friends</p>
-						<button className='btn' onClick={() => history.push('/chat')}>
+						<button
+							className='btn'
+							onClick={() => history.push('/TheChat_App/chat')}>
 							START
 						</button>
 						<p className='link' onClick={logOut}>
@@ -34,10 +36,14 @@ const HomePage = ({ isLoggedIn, history }) => {
 				) : (
 					<div className='container'>
 						<p>Please login</p>
-						<button className='btn' onClick={() => history.push('/login')}>
+						<button
+							className='btn'
+							onClick={() => history.push('/TheChat_App/login')}>
 							LOG IN
 						</button>
-						<p className='link' onClick={() => history.push('/signin')}>
+						<p
+							className='link'
+							onClick={() => history.push('/TheChat_App/signin')}>
 							Are you new? Register
 						</p>
 					</div>

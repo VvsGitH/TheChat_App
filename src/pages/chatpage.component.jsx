@@ -91,7 +91,7 @@ const ChatPage = ({ user, history }) => {
 	return (
 		<div className='chatpage'>
 			<header className='top-bar'>
-				<h2 className='logo' onClick={() => history.push('/')}>
+				<h2 className='logo' onClick={() => history.push('/TheChat_App')}>
 					THE CHAT
 				</h2>
 				<span className='sign-out' onClick={logOut}>

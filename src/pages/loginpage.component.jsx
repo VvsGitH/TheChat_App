@@ -29,7 +29,7 @@ const LoginPage = ({ history }) => {
 			await logIn(userEmail, userPass);
 			setUserEmail('');
 			setUserPass('');
-			history.push('/');
+			history.push('/TheChat_App');
 		} catch (error) {
 			alert('Credential are wrong');
 			console.error('Error during sign-in: ', error.code, error.message);
@@ -39,7 +39,7 @@ const LoginPage = ({ history }) => {
 	const handleGoogleSignin = async () => {
 		try {
 			await signInWithGoogle();
-			history.push('/');
+			history.push('/TheChat_App');
 		} catch (error) {
 			alert('Something went wrong, try again!');
 			console.error(

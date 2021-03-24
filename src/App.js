@@ -35,19 +35,19 @@ function App() {
 		<div className='App'>
 			<Route
 				exact
-				path='/'
+				path='/TheChat_App'
 				render={props => <HomePage {...props} isLoggedIn={isLoggedIn} />}
 			/>
-			<Route path='/login' component={LoginPage} />
-			<Route path='/signin' component={SignPage} />
+			<Route path='/TheChat_App/login' component={LoginPage} />
+			<Route path='/TheChat_App/signin' component={SignPage} />
 			<Route
-				path='/chat'
+				path='/TheChat_App/chat'
 				render={
 					props =>
 						isLoggedIn ? (
 							<ChatPage {...props} user={userInfo} />
 						) : (
-							<Redirect to='/' />
+							<Redirect to='/TheChat_App' />
 						)
 					//<ChatPage {...props} user={userInfo} />
 				}

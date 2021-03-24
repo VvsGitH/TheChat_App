@@ -34,7 +34,7 @@ const SignPage = ({ history }) => {
 			setUserName('');
 			setUserEmail('');
 			setUserPass('');
-			history.push('/');
+			history.push('/TheChat_App');
 		} catch (error) {
 			alert('Something went wrong, try again');
 			console.error(
