@@ -112,3 +112,26 @@
 .chat-container::-webkit-scrollbar-thumb:hover {
 	background-color: darkgrey;
 }
+
+.chat-container .load-btn {
+	max-width: fit-content;
+	align-self: center;
+	padding: 1rem;
+	margin: 0 0 3rem 0;
+	border: 3px solid var(--primary-color);
+	border-radius: 20px;
+
+	font-size: 1rem;
+	font-weight: bold;
+	color: var(--primary-color);
+	background-color: whitesmoke;
+
+	transition: 1s;
+}
+
+.chat-container .load-btn:hover,
+.chat-container .load-btn:focus {
+	outline: none;
+	transform: scale(1.2);
+	background-color: var(--secondary-color);
+}

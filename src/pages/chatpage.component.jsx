@@ -7,13 +7,14 @@ import './chatpage.style.css';
 const ChatPage = ({ user, history }) => {
 	const [newMsgContent, setNewMsgContent] = useState('');
 	const [messages, setMessages] = useState([]);
+	const [moreMessages, setMoreMessages] = useState([]);
 	const [colorHueDictionary, setColorHueDictionary] = useState([]);
 
 	// Reference di un div vuoto alla fine della lista dei messaggi. Utile per lo scrolling automatico
 	const scrollerDummy = useRef();
 
+	// Al caricamento del componente, viene fatta una iscrizione ad un listener del database, che aggiorna lo stato messages ogni volta che rileva un nuovo messaggio nel db
 	useEffect(() => {
-		// Al caricamento del componente, viene fatta una iscrizione ad un listener del database, che aggiorna lo stato messages ogni volta che rileva un nuovo messaggio nel db
 		const unsubFromFirestore = firestore
 			.collection('messages/')
 			.orderBy('sentAt', 'desc')
@@ -21,38 +22,46 @@ const ChatPage = ({ user, history }) => {
 			.onSnapshot(
 				snapshot => {
 					console.log('Updating the chat from db!');
-					let dbMessages = [];
-					snapshot.forEach(msg => {
-						let msgWithId = {
-							id: msg.id,
-							...msg.data(),
-						};
-						dbMessages.push(msgWithId);
-					});
-					setMessages(dbMessages.reverse());
+					// Creo un array con solo i messaggi aggiunti rispetto all'ultimo snapshot
+					let newMsgs = [];
+					snapshot
+						.docChanges()
+						.filter(change => change.type === 'added')
+						.forEach(change => {
+							let msgWithId = {
+								id: change.doc.id,
+								...change.doc.data(),
+							};
+							newMsgs.push(msgWithId);
+						});
+					// Metto i messaggi più recenti alla fine
+					newMsgs.reverse();
+					setMessages(msgs => [...msgs, ...newMsgs]);
+					// La chat scorre in basso fino al nuovo messaggio
+					scrollerDummy.current.scrollIntoView({ behavior: 'smooth' });
 				},
 				error => console.error(error)
 			);
-
+		// Annullo l'iscrizione al listener del database
 		return () => unsubFromFirestore();
 	}, []);
 
+	// Ogni volta che gli stati messages o moreMessages cambiano, viene creato un dizionario che assegna un colore (solo il valore Hue) ad ogni sender
 	useEffect(() => {
-		// Ogni volta che lo stato messages cambia viene creato un dizionario che assegna un colore (solo il valore Hue) ad ogni sender ...
 		let senders = messages.map(msg => msg.senderId);
+		senders.push(...moreMessages.map(msg => msg.senderId)); // Combino i senders di messages e moreMessages
 		let uniqueSenders = senders.filter(
 			(sender, indx) => senders.indexOf(sender) === indx
 		);
+		// H va da 0 a 359. Divido il range di colori in base al numero di senders presenti in chat
 		let colorHueDistance = Math.ceil(360 / uniqueSenders.length);
 		let colorSenderDict = {};
+		// Creo il dizionario
 		for (let i = 0; i < uniqueSenders.length; i++) {
 			colorSenderDict[uniqueSenders[i]] = i * colorHueDistance;
 		}
 		setColorHueDictionary(colorSenderDict);
-
-		// ... E la chat scorre in basso fino al nuovo messaggio
-		scrollerDummy.current.scrollIntoView({ behavior: 'smooth' });
-	}, [messages]);
+	}, [messages, moreMessages]);
 
 	const handleChange = event => {
 		event.preventDefault();
@@ -68,7 +77,7 @@ const ChatPage = ({ user, history }) => {
 			setNewMsgContent('');
 			return;
 		}
-
+		// Aggiungo i messaggi non vuoti al database
 		try {
 			await firestore.collection('messages/').add({
 				senderId: user.id,
@@ -79,6 +88,46 @@ const ChatPage = ({ user, history }) => {
 			setNewMsgContent('');
 		} catch (error) {
 			console.error('Error sending message: ', error);
+		}
+	};
+
+	const loadMoreMessages = async () => {
+		let oldDbMessages = [];
+		let snapshot = [];
+		try {
+			console.log('Loading more messages from the db...');
+			// Imposto la query in base alla data di invio dei messaggi. Tale data deve essere inferiore rispetto a quella del messaggio più vecchio presente nella chat: questo messaggio è presente inizialmente in messages e successivamente in moreMessages.
+			if (moreMessages.length === 0) {
+				snapshot = await firestore
+					.collection('messages/')
+					.where('sentAt', '<', messages[0].sentAt)
+					.orderBy('sentAt', 'desc')
+					.limit(25)
+					.get();
+			} else {
+				snapshot = await firestore
+					.collection('messages/')
+					.where('sentAt', '<', moreMessages[0].sentAt)
+					.orderBy('sentAt', 'desc')
+					.limit(25)
+					.get();
+			}
+			// Inserisco i messaggi del db in moreMessages. A differenza di messages, moreMessages è un array che viene caricato 25 messaggi per volta e i nuovi messaggi sono più vecchi dei precedenti. Quindi devo mettere mettere i 'nuovi' messaggi sopra quell già presenti.
+			if (!snapshot.empty) {
+				snapshot.forEach(msg => {
+					let msgWithId = {
+						id: msg.id,
+						...msg.data(),
+					};
+					oldDbMessages.push(msgWithId);
+				});
+				oldDbMessages.reverse().push(...moreMessages);
+				setMoreMessages(oldDbMessages);
+			} else {
+				console.log('No more messages');
+			}
+		} catch (error) {
+			console.error('Error during the load of old messages: ', error);
 		}
 	};
 
@@ -104,6 +153,19 @@ const ChatPage = ({ user, history }) => {
 
 			<div className='chat-container'>
 				<div className='chat-slider'>
+					<button className='load-btn' onClick={loadMoreMessages}>
+						....MORE...
+					</button>
+					{moreMessages.map(msg => (
+						<Message
+							key={msg.id}
+							sender={msg.senderName}
+							content={msg.content}
+							time={msg.sentAt.toDate().toLocaleString()}
+							isReceived={msg.senderId !== user.id}
+							color={colorHueDictionary[msg.senderId]}
+						/>
+					))}
 					{messages.map(msg => (
 						<Message
 							key={msg.id}

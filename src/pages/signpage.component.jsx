@@ -31,10 +31,11 @@ const SignPage = ({ history }) => {
 		event.preventDefault();
 		try {
 			await createNewUser(userName, userEmail, userPass);
-			setUserName('');
-			setUserEmail('');
-			setUserPass('');
 			history.push('/TheChat_App');
+			// onAuthStateChange() viene evocato prima che createNewUser() aggiorni l'utente con il suo username.
+			// Quindi in questo momento auth.diplayName è corretto, ma lo stato user di App ha name:null.
+			// Devo dunque aggiornare la pagina in modo che onAuthStateChange() venga chiamato di nuovo e imposti lo stato user in modo corretto.
+			window.location.reload();
 		} catch (error) {
 			alert('Something went wrong, try again');
 			console.error(

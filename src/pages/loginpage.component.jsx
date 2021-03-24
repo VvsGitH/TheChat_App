@@ -27,8 +27,6 @@ const LoginPage = ({ history }) => {
 		event.preventDefault();
 		try {
 			await logIn(userEmail, userPass);
-			setUserEmail('');
-			setUserPass('');
 			history.push('/TheChat_App');
 		} catch (error) {
 			alert('Credential are wrong');

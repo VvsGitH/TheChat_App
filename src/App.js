@@ -13,7 +13,7 @@ function App() {
 	const [userInfo, setUserInfo] = useState({ id: '', name: '' });
 
 	useEffect(() => {
-		const unsubFromAuth = auth.onAuthStateChanged(async userAuth => {
+		const unsubFromAuth = auth.onAuthStateChanged(userAuth => {
 			console.log('Auth state changed: ', userAuth);
 			if (userAuth) {
 				console.log('A new user logged in');
