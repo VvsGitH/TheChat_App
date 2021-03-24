@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/TheChat_App/static/css/main.f9cf0d7d.chunk.css",
-    "main.js": "/TheChat_App/static/js/main.c029e8ca.chunk.js",
-    "main.js.map": "/TheChat_App/static/js/main.c029e8ca.chunk.js.map",
+    "main.css": "/TheChat_App/static/css/main.39026c41.chunk.css",
+    "main.js": "/TheChat_App/static/js/main.124f9e1f.chunk.js",
+    "main.js.map": "/TheChat_App/static/js/main.124f9e1f.chunk.js.map",
     "runtime-main.js": "/TheChat_App/static/js/runtime-main.2a7d78fd.js",
     "runtime-main.js.map": "/TheChat_App/static/js/runtime-main.2a7d78fd.js.map",
-    "static/js/2.6acacfbd.chunk.js": "/TheChat_App/static/js/2.6acacfbd.chunk.js",
-    "static/js/2.6acacfbd.chunk.js.map": "/TheChat_App/static/js/2.6acacfbd.chunk.js.map",
+    "static/js/2.cee71566.chunk.js": "/TheChat_App/static/js/2.cee71566.chunk.js",
+    "static/js/2.cee71566.chunk.js.map": "/TheChat_App/static/js/2.cee71566.chunk.js.map",
     "index.html": "/TheChat_App/index.html",
-    "static/css/main.f9cf0d7d.chunk.css.map": "/TheChat_App/static/css/main.f9cf0d7d.chunk.css.map",
-    "static/js/2.6acacfbd.chunk.js.LICENSE.txt": "/TheChat_App/static/js/2.6acacfbd.chunk.js.LICENSE.txt"
+    "static/css/main.39026c41.chunk.css.map": "/TheChat_App/static/css/main.39026c41.chunk.css.map",
+    "static/js/2.cee71566.chunk.js.LICENSE.txt": "/TheChat_App/static/js/2.cee71566.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.2a7d78fd.js",
-    "static/js/2.6acacfbd.chunk.js",
-    "static/css/main.f9cf0d7d.chunk.css",
-    "static/js/main.c029e8ca.chunk.js"
+    "static/js/2.cee71566.chunk.js",
+    "static/css/main.39026c41.chunk.css",
+    "static/js/main.124f9e1f.chunk.js"
   ]
 }
