@@ -60,3 +60,12 @@ export async function logIn(email, password) {
 		throw error;
 	}
 }
+
+// UTILS -> Sign Out
+export function signOut() {
+	auth
+		.signOut()
+		.catch(error =>
+			console.error('Error during sign-out: ', error.code, error.message)
+		);
+}

@@ -1,18 +1,10 @@
 import React from 'react';
 import Header from '../components/header.component';
-import { auth } from '../firebase/firebase.utils';
+import { signOut } from '../firebase/firebase.utils';
 
 import './homepage.style.css';
 
 const HomePage = ({ isLoggedIn, history }) => {
-	const logOut = async () => {
-		try {
-			await auth.signOut();
-		} catch (error) {
-			console.error('Error during sign-out: ', error.code, error.message);
-		}
-	};
-
 	return (
 		<div>
 			<Header history={history} />
@@ -29,7 +21,7 @@ const HomePage = ({ isLoggedIn, history }) => {
 							onClick={() => history.push('/TheChat_App/chat')}>
 							START
 						</button>
-						<p className='link' onClick={logOut}>
+						<p className='link' onClick={signOut}>
 							Log out
 						</p>
 					</div>

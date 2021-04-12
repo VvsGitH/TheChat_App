@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Message from '../components/message.component';
-import { auth, firestore } from '../firebase/firebase.utils';
+import { signOut, firestore } from '../firebase/firebase.utils';
 
 import './chatpage.style.css';
 
@@ -131,14 +131,6 @@ const ChatPage = ({ user, history }) => {
 		}
 	};
 
-	const logOut = async () => {
-		try {
-			await auth.signOut();
-		} catch (error) {
-			console.error('Error during sign-out: ', error.code, error.message);
-		}
-	};
-
 	return (
 		<div className='chatpage'>
 			<header className='top-bar'>
@@ -146,7 +138,7 @@ const ChatPage = ({ user, history }) => {
 					THE CHAT
 				</h2>
 
-				<span className='sign-out' onClick={logOut}>
+				<span className='sign-out' onClick={signOut}>
 					Sign Out
 				</span>
 			</header>
