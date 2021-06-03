@@ -23,6 +23,9 @@
 }
 
 .homepage .link {
+	border: none;
+	background-color: transparent;
+
 	position: absolute;
 	bottom: 1rem;
 	right: 1.3rem;

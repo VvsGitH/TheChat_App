@@ -19,9 +19,9 @@ const HomePage = ({ isLoggedIn }) => {
 						<button className='btn' onClick={() => history.push('/chat')}>
 							START
 						</button>
-						<p className='link' onClick={signOut} tabIndex='0' role='button'>
+						<button className='link' onClick={signOut}>
 							Log out
-						</p>
+						</button>
 					</div>
 				) : (
 					<div className='container'>
