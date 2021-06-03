@@ -3,8 +3,6 @@ import { createNewUser } from '../firebase/firebase.utils';
 
 import './signpage.style.css';
 
-import Header from '../components/header.component';
-
 const SignPage = ({ history }) => {
 	const [userName, setUserName] = useState('');
 	const [userEmail, setUserEmail] = useState('');
@@ -31,7 +29,7 @@ const SignPage = ({ history }) => {
 		event.preventDefault();
 		try {
 			await createNewUser(userName, userEmail, userPass);
-			history.push('/TheChat_App');
+			history.push('/');
 			// onAuthStateChange() viene evocato prima che createNewUser() aggiorni l'utente con il suo username.
 			// Quindi in questo momento auth.diplayName è corretto, ma lo stato user di App ha name:null.
 			// Devo dunque aggiornare la pagina in modo che onAuthStateChange() venga chiamato di nuovo e imposti lo stato user in modo corretto.
@@ -47,10 +45,8 @@ const SignPage = ({ history }) => {
 	};
 
 	return (
-		<div>
-			<Header history={history} />
-
-			<div className='signpage card flex-column'>
+		<main className='signpage'>
+			<div className='card flex-column'>
 				<h3>Sign in with your email and password</h3>
 				<form className='sign-form' onSubmit={handleUserCreation}>
 					<div className='container'>
@@ -91,7 +87,7 @@ const SignPage = ({ history }) => {
 					</button>
 				</form>
 			</div>
-		</div>
+		</main>
 	);
 };
 

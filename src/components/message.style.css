@@ -8,6 +8,8 @@
 	background-color: var(--primary-color);
 	border-radius: 1rem 3rem;
 	align-self: flex-end;
+
+	color: white;
 }
 
 @media only screen and (min-width: 540px) {
@@ -21,6 +23,7 @@
 	border: 0.2rem solid var(--primary-color);
 	border-radius: 3rem 1rem;
 	align-self: flex-start;
+	color: black;
 }
 
 .message .name {

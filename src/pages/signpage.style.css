@@ -1,6 +1,5 @@
-.signpage {
+.signpage .card {
 	padding: 50px 50px;
-	justify-content: space-between;
 	height: 100%;
 }
 

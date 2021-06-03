@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Message from '../components/message.component';
-import { signOut, firestore } from '../firebase/firebase.utils';
+import { firestore } from '../firebase/firebase.utils';
 
 import './chatpage.style.css';
 
-const ChatPage = ({ user, history }) => {
+const ChatPage = ({ user }) => {
 	const [newMsgContent, setNewMsgContent] = useState('');
 	const [messages, setMessages] = useState([]);
 	const [moreMessages, setMoreMessages] = useState([]);
@@ -49,7 +49,9 @@ const ChatPage = ({ user, history }) => {
 	// Ogni volta che gli stati messages o moreMessages cambiano, viene creato un dizionario che assegna un colore (solo il valore Hue) ad ogni sender
 	useEffect(() => {
 		let senders = messages.map(msg => msg.senderId);
-		senders.push(...moreMessages.map(msg => msg.senderId)); // Combino i senders di messages e moreMessages
+		// Combino i senders di messages e moreMessages
+		senders.push(...moreMessages.map(msg => msg.senderId));
+		// Creo un array con tutti i sender, non ripetuti
 		let uniqueSenders = senders.filter(
 			(sender, indx) => senders.indexOf(sender) === indx
 		);
@@ -132,18 +134,8 @@ const ChatPage = ({ user, history }) => {
 	};
 
 	return (
-		<div className='chatpage'>
-			<header className='top-bar'>
-				<h2 className='logo' onClick={() => history.push('/TheChat_App')}>
-					THE CHAT
-				</h2>
-
-				<span className='sign-out' onClick={signOut}>
-					Sign Out
-				</span>
-			</header>
-
-			<div className='chat-container'>
+		<main className='chatpage'>
+			<section className='chat-container'>
 				<div className='chat-slider'>
 					<button className='load-btn' onClick={loadMoreMessages}>
 						....MORE...
@@ -170,7 +162,7 @@ const ChatPage = ({ user, history }) => {
 					))}
 					<div ref={scrollerDummy}></div>
 				</div>
-			</div>
+			</section>
 
 			<form className='chat-controls' onSubmit={sendMessage}>
 				<textarea
@@ -185,7 +177,7 @@ const ChatPage = ({ user, history }) => {
 					<i className='fa fa-paper-plane'></i>
 				</button>
 			</form>
-		</div>
+		</main>
 	);
 };
 

@@ -3,8 +3,6 @@ import { signInWithGoogle, logIn } from '../firebase/firebase.utils';
 
 import './loginpage.style.css';
 
-import Header from '../components/header.component';
-
 const LoginPage = ({ history }) => {
 	const [userEmail, setUserEmail] = useState('');
 	const [userPass, setUserPass] = useState('');
@@ -27,7 +25,7 @@ const LoginPage = ({ history }) => {
 		event.preventDefault();
 		try {
 			await logIn(userEmail, userPass);
-			history.push('/TheChat_App');
+			history.push('/');
 		} catch (error) {
 			alert('Credential are wrong');
 			console.error('Error during sign-in: ', error.code, error.message);
@@ -37,7 +35,7 @@ const LoginPage = ({ history }) => {
 	const handleGoogleSignin = async () => {
 		try {
 			await signInWithGoogle();
-			history.push('/TheChat_App');
+			history.push('/');
 		} catch (error) {
 			alert('Something went wrong, try again!');
 			console.error(
@@ -50,11 +48,9 @@ const LoginPage = ({ history }) => {
 	};
 
 	return (
-		<div>
-			<Header history={history} />
-
-			<div className='loginpage card flex-column'>
-				<div className='option'>
+		<main className='loginpage'>
+			<div className='card flex-column'>
+				<section className='option'>
 					<h3>Login with your email and password</h3>
 					<form onSubmit={handleLogIn}>
 						<label>Email</label>
@@ -79,11 +75,11 @@ const LoginPage = ({ history }) => {
 							LOG IN
 						</button>
 					</form>
-				</div>
+				</section>
 
 				<hr />
 
-				<div className='option'>
+				<section className='option'>
 					<h3>Login with Google</h3>
 					<button
 						className='btn btn-google'
@@ -91,9 +87,9 @@ const LoginPage = ({ history }) => {
 						onClick={handleGoogleSignin}>
 						LOG IN WITH GOOGLE
 					</button>
-				</div>
+				</section>
 			</div>
-		</div>
+		</main>
 	);
 };
 

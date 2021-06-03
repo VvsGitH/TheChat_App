@@ -25,6 +25,11 @@ p {
 	font-size: 1.4rem;
 }
 
+a {
+	text-decoration: none;
+	color: black;
+}
+
 input {
 	border: none;
 	border-bottom: 0.15rem solid darkgray;
@@ -49,7 +54,7 @@ input {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-around;
 }
 
 .btn {

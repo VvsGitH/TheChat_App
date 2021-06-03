@@ -1,16 +1,16 @@
-.loginpage {
+.loginpage .card {
 	padding: 40px 50px;
 	justify-content: space-around;
 }
 
 @media only screen and (min-width: 540px) {
-	.loginpage {
+	.loginpage .card {
 		width: 100%;
 	}
 }
 
 @media only screen and (min-width: 580px) {
-	.loginpage {
+	.loginpage .card {
 		width: 580px;
 	}
 }

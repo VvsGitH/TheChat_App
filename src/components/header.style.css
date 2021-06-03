@@ -6,17 +6,57 @@
 	align-items: center;
 }
 
-.header .title {
+.header.reduced {
+	min-height: 6vh;
+	display: grid;
+	grid-template-columns: 4fr 1fr;
+	align-items: center;
+}
+
+.header .logo {
+	width: fit-content;
+	margin: 0 auto;
+
 	text-align: center;
 	font-weight: bold;
+
 	font-size: 5.5rem;
 	letter-spacing: 0.7rem;
 	line-height: 6rem;
+
 	color: whitesmoke;
-	transition: 2s;
+	transition: transform 1s;
 }
 
-.header .title:hover {
+.header.reduced .logo {
+	font-size: 2rem;
+	letter-spacing: 0.4rem;
+	line-height: normal;
+}
+
+.header .sign-out {
+	margin: 0 auto;
+	max-width: fit-content;
+
+	border: none;
+	background-color: transparent;
+
+	font-size: 1rem;
+	color: whitesmoke;
+	transition: transform 1s;
+}
+
+.header .logo:hover,
+.header .logo:focus,
+.header .sign-out:hover,
+.header .sign-out:focus {
+	outline: none;
 	cursor: pointer;
 	transform: scale(1.15);
+}
+
+.header .logo:focus,
+.header .sign-out:hover,
+.header .sign-out:focus {
+	border-bottom: 2px solid whitesmoke;
 }

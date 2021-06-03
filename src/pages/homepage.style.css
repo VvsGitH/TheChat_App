@@ -1,6 +1,5 @@
 .homepage {
 	position: relative;
-	justify-content: space-around;
 }
 
 .homepage .logo {
@@ -32,7 +31,9 @@
 	border-bottom: 0.1rem solid black;
 }
 
-.homepage .link:hover {
+.homepage .link:hover,
+.homepage .link:focus {
+	outline: none;
 	color: var(--primary-color);
 	border-bottom: 0.1rem solid var(--primary-color);
 	transform: scale(1.1);

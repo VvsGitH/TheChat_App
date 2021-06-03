@@ -1,47 +1,10 @@
 /* ------------------- GLOBAL ------------------- */
 .chatpage {
-	height: 100vh;
+	height: 94vh;
 	max-width: 100vw;
 
 	display: grid;
-	grid-template-rows: 1fr 10fr auto;
-}
-
-/* ------------------- TOP BAR ------------------- */
-.top-bar {
-	background-color: var(--primary-color);
-
-	display: grid;
-	grid-template-columns: 4fr 1fr;
-	align-items: center;
-}
-
-.top-bar .logo {
-	margin: 0 auto;
-	max-width: fit-content;
-
-	color: whitesmoke;
-	letter-spacing: 0.4rem;
-	transition: 1s;
-}
-
-.top-bar .sign-out {
-	margin: 0 auto;
-	max-width: fit-content;
-
-	color: whitesmoke;
-	font-size: 1.1rem;
-	transition: 0.2s;
-}
-
-.top-bar .logo:hover,
-.top-bar .sign-out:hover {
-	transform: scale(1.1);
-	cursor: pointer;
-}
-
-.top-bar .sign-out:hover {
-	border-bottom: 2px solid whitesmoke;
+	grid-template-rows: 10fr 1fr;
 }
 
 /* ------------------- INPUT CONTAINER ------------------- */
